@@ -4,7 +4,7 @@ import './main.scss';
 const Main = () => {
     return (
         <div className="main">
-            
+            <p>chat</p>
         </div>
     )
 }
