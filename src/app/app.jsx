@@ -4,6 +4,7 @@ import './app.scss';
 import Main from './pages/main';
 import Signup from './pages/signup';
 import Login from './pages/login';
+import Chat from './components/chat';
 
 const App = () => {
     return (
@@ -15,6 +16,7 @@ const App = () => {
                     <Route path="/signup" component={Signup} />
                 </Switch>
             </Router>
+            <Chat />
         </div>
     )
 }

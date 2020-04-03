@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./login.scss";
+import { styles } from "../../../assets/jss/authStyles";
 import {
 	Grid,
 	Box,
@@ -8,9 +8,8 @@ import {
 	Button,
 	FormControlLabel,
 	Checkbox,
-	Typography
+	Typography,
 } from "@material-ui/core";
-import { Link } from "react-router-dom";
 import Vector from "./../../../assets/images/vector.svg";
 
 const Login = () => {
@@ -18,25 +17,25 @@ const Login = () => {
 		email: {
 			value: "",
 			isValid: true,
-			errorMessage: ""
+			errorMessage: "",
 		},
 		password: {
 			value: "",
 			isValid: true,
-			errorMessage: ""
-		}
+			errorMessage: "",
+		},
 	});
 
 	const [checked, setChecked] = useState({
-		checked: true
+		checked: true,
 	});
 
-	const handleCheckboxChange = event => {
+	const handleCheckboxChange = (event) => {
 		setChecked({ [event.target.name]: event.target.checked });
 	};
 
 	// function to handle input change
-	const handleChange = event => {
+	const handleChange = (event) => {
 		const { name, value } = event.target;
 
 		const updatedState = loginForm;
@@ -46,7 +45,7 @@ const Login = () => {
 	};
 
 	// function to handle form submission
-	const handleSubmit = event => {
+	const handleSubmit = (event) => {
 		event.preventDefault();
 		validate();
 		console.log(loginForm);
@@ -60,8 +59,8 @@ const Login = () => {
 				email: {
 					...loginForm.email,
 					isValid: false,
-					errorMessage: "Invalid Email"
-				}
+					errorMessage: "Invalid Email",
+				},
 			});
 			return;
 		} else if (loginForm.password.value.length <= 8) {
@@ -69,26 +68,26 @@ const Login = () => {
 				email: {
 					...loginForm.email,
 					isValid: true,
-					errorMessage: ""
+					errorMessage: "",
 				},
 				password: {
 					...loginForm.password,
 					isValid: false,
-					errorMessage: "Password too short, min. 8 characters"
-				}
+					errorMessage: "Password too short, min. 8 characters",
+				},
 			});
 		} else {
 			setLoginForm({
 				email: {
 					...loginForm.email,
 					isValid: true,
-					errorMessage: ""
+					errorMessage: "",
 				},
 				password: {
 					...loginForm.password,
 					isValid: true,
-					errorMessage: ""
-				}
+					errorMessage: "",
+				},
 			});
 		}
 	};
@@ -100,7 +99,7 @@ const Login = () => {
 	}
 
 	return (
-		<div className="login">
+		<div>
 			<Grid container>
 				<Box
 					component={Grid}
@@ -110,6 +109,7 @@ const Login = () => {
 					flexDirection="column"
 					justifyContent="center"
 					textAlign="center"
+					style={styles.leftItem}
 				>
 					<img src={Vector} alt="" />
 				</Box>
@@ -122,15 +122,16 @@ const Login = () => {
 					flexDirection="column"
 					justifyContent="center"
 					textAlign="center"
+					style={styles.rightItem}
 				>
-					<Container maxWidth="sm">
-						<Typography variant="h3" component="h3" className="heading">
+					<Container maxWidth="sm" style={styles.formContainer}>
+						<Typography variant="h3" component="h3" className="heading" style={styles.formHeading}>
 							Hello,
 							<br />
 							Welcome Back
 						</Typography>
 
-						<form onSubmit={handleSubmit} noValidate autoComplete="off">
+						<form onSubmit={handleSubmit} noValidate autoComplete="off" style={styles.form}>
 							<div>
 								<TextField
 									id="email"
@@ -140,6 +141,7 @@ const Login = () => {
 									onChange={handleChange}
 									error={!loginForm.email.isValid}
 									helperText={loginForm.email.errorMessage}
+									style={styles.textField}
 								/>
 							</div>
 							<div>
@@ -151,9 +153,10 @@ const Login = () => {
 									onChange={handleChange}
 									error={!loginForm.password.isValid}
 									helperText={loginForm.password.errorMessage}
+									style={styles.textField}
 								/>
 							</div>
-							<div className="form-action">
+							<div style={styles.formAction}>
 								<div>
 									<FormControlLabel
 										control={
@@ -174,8 +177,8 @@ const Login = () => {
 								<div>
 									<Typography
 										component="p"
-										className="forgot-pass"
 										color="primary"
+										style={styles.forgotPass}
 									>
 										Forgot Password?
 									</Typography>
@@ -183,16 +186,21 @@ const Login = () => {
 							</div>
 
 							<div>
-								<Button variant="contained" color="primary" type="submit">
+								<Button
+									variant="contained"
+									color="primary"
+									type="submit"
+									style={styles.button}
+								>
 									Login
 								</Button>
 							</div>
 						</form>
 						<Typography component="p" color="primary">
 							Don't have an account?&nbsp;
-							<Link to="/signup">
-								<Typography component="a" color="primary">Click Here</Typography>
-							</Link>
+							<Typography component="a" href="/signup" color="primary">
+								Click Here
+							</Typography>
 						</Typography>
 					</Container>
 				</Box>

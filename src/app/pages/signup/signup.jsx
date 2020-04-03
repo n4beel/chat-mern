@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./signup.scss";
+import { styles } from "../../../assets/jss/authStyles";
 import {
 	Grid,
 	Box,
@@ -8,38 +8,37 @@ import {
 	Button,
 	FormControlLabel,
 	Checkbox,
-	Typography
+	Typography,
 } from "@material-ui/core";
-import { Link } from "react-router-dom";
 import Vector from "./../../../assets/images/vector.svg";
 
 const Signup = () => {
 	const [signupForm, setSignupFrom] = useState({
 		name: {
-			value: ""
+			value: "",
 		},
 		email: {
 			value: "",
 			isValid: true,
-			errorMessage: ""
+			errorMessage: "",
 		},
 		password: {
 			value: "",
 			isValid: true,
-			errorMessage: ""
-		}
+			errorMessage: "",
+		},
 	});
 
 	const [checked, setChecked] = useState({
-		checked: false
+		checked: false,
 	});
 
-	const handleCheckboxChange = event => {
+	const handleCheckboxChange = (event) => {
 		setChecked({ [event.target.name]: event.target.checked });
 	};
 
 	// function to handle input change
-	const handleChange = event => {
+	const handleChange = (event) => {
 		const { name, value } = event.target;
 
 		const updatedState = signupForm;
@@ -49,7 +48,7 @@ const Signup = () => {
 	};
 
 	// function to handle form submission
-	const handleSubmit = event => {
+	const handleSubmit = (event) => {
 		event.preventDefault();
 		validate();
 		console.log(signupForm);
@@ -63,8 +62,8 @@ const Signup = () => {
 				email: {
 					...signupForm.email,
 					isValid: false,
-					errorMessage: "Invalid Email"
-				}
+					errorMessage: "Invalid Email",
+				},
 			});
 			return;
 		} else if (signupForm.password.value.length <= 8) {
@@ -73,13 +72,13 @@ const Signup = () => {
 				email: {
 					...signupForm.email,
 					isValid: true,
-					errorMessage: ""
+					errorMessage: "",
 				},
 				password: {
 					...signupForm.password,
 					isValid: false,
-					errorMessage: "Password too short, min. 8 characters"
-				}
+					errorMessage: "Password too short, min. 8 characters",
+				},
 			});
 		} else {
 			setSignupFrom({
@@ -87,13 +86,13 @@ const Signup = () => {
 				email: {
 					...signupForm.email,
 					isValid: true,
-					errorMessage: ""
+					errorMessage: "",
 				},
 				password: {
 					...signupForm.password,
 					isValid: true,
-					errorMessage: ""
-				}
+					errorMessage: "",
+				},
 			});
 		}
 	};
@@ -115,6 +114,7 @@ const Signup = () => {
 					flexDirection="column"
 					justifyContent="center"
 					textAlign="center"
+					style={styles.leftItem}
 				>
 					<img src={Vector} alt="" />
 				</Box>
@@ -127,13 +127,14 @@ const Signup = () => {
 					flexDirection="column"
 					justifyContent="center"
 					textAlign="center"
+					style={styles.rightItem}
 				>
-					<Container maxWidth="sm">
-						<Typography variant="h3" component="h3" className="heading">
+					<Container maxWidth="sm" style={styles.formContainer}>
+						<Typography variant="h3" component="h3" className="heading" style={styles.formHeading}>
 							Create an account
 						</Typography>
 
-						<form onSubmit={handleSubmit} noValidate autoComplete="off">
+						<form onSubmit={handleSubmit} noValidate autoComplete="off" style={styles.form}>
 							<div>
 								<TextField
 									id="name"
@@ -141,6 +142,7 @@ const Signup = () => {
 									type="text"
 									name="name"
 									onChange={handleChange}
+									style={styles.textField}
 								/>
 							</div>
 							<div>
@@ -152,6 +154,7 @@ const Signup = () => {
 									onChange={handleChange}
 									error={!signupForm.email.isValid}
 									helperText={signupForm.email.errorMessage}
+									style={styles.textField}
 								/>
 							</div>
 							<div>
@@ -163,9 +166,10 @@ const Signup = () => {
 									onChange={handleChange}
 									error={!signupForm.password.isValid}
 									helperText={signupForm.password.errorMessage}
+									style={styles.textField}
 								/>
 							</div>
-							<div className="form-action">
+							<div style={styles.formAction}>
 								<FormControlLabel
 									control={
 										<Checkbox
@@ -178,32 +182,30 @@ const Signup = () => {
 									label={
 										<Typography component="p" color="primary">
 											I agree with the&nbsp;
-											<a
+											<Typography
+												component="a"
+												color="primary"
 												href="https://signup.com/Terms"
 												rel="noopener noreferrer"
 												target="_blank"
 											>
-												<Typography component="a" color="primary">
-													Terms and Conditions
-												</Typography>
-											</a>
+												Terms and Conditions
+											</Typography>
 										</Typography>
 									}
 								/>
 							</div>
 							<div>
-								<Button variant="contained" color="primary" type="submit">
+								<Button variant="contained" color="primary" type="submit" style={styles.button}>
 									Primary
 								</Button>
 							</div>
 						</form>
 						<Typography component="p" color="primary">
 							Already have an account?&nbsp;
-							<Link to="/login">
-								<Typography component="a" color="primary">
-									Click Here
-								</Typography>
-							</Link>
+							<Typography component="a" color="primary" href="/login">
+								Click Here
+							</Typography>
 						</Typography>
 					</Container>
 				</Box>
