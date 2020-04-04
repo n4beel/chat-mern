@@ -7,17 +7,18 @@ const theme = createMuiTheme({
 			light: "#484fab",
 			main: "#3494BA",
 			dark: "#286F8B",
-			contrastText: "#fff"
+			contrastText: "#fff",
 		},
 		background: {
 			light: "#fff",
-			dark: "#3494BA"
+			dark: "#3494BA",
 		},
 		fontColor: {
 			dark: "#000",
 			light: "#fff",
-			accent: "#3494BA"
-		}
+			accent: "#3494BA",
+			grey: "#9E9B9B",
+		},
 	},
 	typography: {
 		htmlFontSize: 16,
@@ -32,44 +33,44 @@ const theme = createMuiTheme({
 			fontWeight: 300,
 			fontSize: "6rem",
 			lineHeight: 1.167,
-			letterSpacing: "-0.01562em"
+			letterSpacing: "-0.01562em",
 		},
 		h2: {
 			fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
 			fontWeight: 300,
 			fontSize: "3.75rem",
 			lineHeight: 1.2,
-			letterSpacing: "-0.00833em"
+			letterSpacing: "-0.00833em",
 		},
 		h3: {
 			fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
 			fontWeight: 600,
 			fontSize: "3rem",
 			lineHeight: 1.167,
-			letterSpacing: "0em"
+			letterSpacing: "0em",
 		},
 		h4: {
 			fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
 			fontWeight: 400,
 			fontSize: "2.125rem",
 			lineHeight: 1.235,
-			letterSpacing: "0.00735em"
+			letterSpacing: "0.00735em",
 		},
 		h5: {
 			fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
 			fontWeight: 400,
 			fontSize: "1.5rem",
 			lineHeight: 1.334,
-			letterSpacing: "0em"
+			letterSpacing: "0em",
 		},
 		h6: {
 			fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
 			fontWeight: 500,
 			fontSize: "1.2rem",
 			lineHeight: 1.6,
-			letterSpacing: "0.0075em"
-		}
-	}
+			letterSpacing: "0.0075em",
+		},
+	},
 });
 
 export default theme;
