@@ -1,10 +1,10 @@
 import React from "react";
-import Navbar from "../../components/navbar";
 import { makeStyles } from "@material-ui/core";
 import Vector from "./../../../assets/images/new.png";
-import Chat from "../../components/chat/chat";
+import ChatContainer from "../../components/chat/chat-container";
+import NavbarContainer from "../../components/navbar/navbar-container";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
 	root: {
 		height: "100vh",
 		backgroundImage: `url(${Vector})`,
@@ -19,8 +19,8 @@ const Main = () => {
 
 	return (
 		<div className={classes.root}>
-			<Navbar />
-			<Chat />
+			<NavbarContainer />
+			<ChatContainer />
 		</div>
 	);
 };

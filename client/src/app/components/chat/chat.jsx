@@ -7,8 +7,9 @@ import {
 	IconButton,
 } from "@material-ui/core";
 import ChatIcon from "@material-ui/icons/Chat";
-import ChatWindow from "../chat-window/chat-window";
-import ChatHead from "../chat-head";
+import ChatHeadContainer from "../chat-head/chat-head-container";
+import ChatWindowContainer from "../chat-window/chat-window-container";
+import ChatFootContainer from "../chat-foot/chat-foot-container";
 
 const useStyles = makeStyles((theme) => ({
 	chatButton: {
@@ -20,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 		height: 460,
 		width: 360,
 		position: "absolute",
-		bottom: 20,
+		bottom: 36,
 		right: 112,
 		boxShadow: "1px 1px 6px #00000029",
 		borderRadius: 16,
@@ -41,18 +42,15 @@ const useStyles = makeStyles((theme) => ({
 		transform: "translateY(0px) rotate(45deg)",
 		borderRadius: 3,
 		position: "absolute",
-		bottom: 36,
-		right: -8,
+		bottom: 20,
+		right: -7,
 		boxShadow: "1px 1px 6px #00000029",
 		zIndex: "9",
 	},
 }));
 
-const Chat = () => {
+const Chat = (props) => {
 	const classes = useStyles();
-	const invisible = false;
-
-	const [chatStatus, setChatStatus] = React.useState(false);
 
 	return (
 		<div>
@@ -61,18 +59,22 @@ const Chat = () => {
 				aria-label="add"
 				className={classes.chatButton}
 				onClick={() => {
-					setChatStatus(!chatStatus);
+					props.setChatStatus(!props.chatStatus);
 				}}
 			>
-				<Badge color="secondary" variant="dot" invisible={invisible}>
+				<Badge color="secondary" variant="dot" invisible={props.invisible}>
 					<ChatIcon />
 				</Badge>
 			</Fab>
-			{chatStatus ? (
+			{props.chatStatus ? (
 				<div className={classes.root}>
 					<div className={classes.chatContainer}>
-						<ChatHead />
-						<ChatWindow />
+						<ChatHeadContainer
+							setChatStatus={props.setChatStatus}
+							chatStatus={props.chatStatus}
+						/>
+						<ChatWindowContainer />
+						<ChatFootContainer />
 					</div>
 					<div className={classes.chatFin}></div>
 				</div>

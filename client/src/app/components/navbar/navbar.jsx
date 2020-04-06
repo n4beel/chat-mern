@@ -6,6 +6,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
+
 import MoreIcon from "@material-ui/icons/MoreVert";
 
 const useStyles = makeStyles((theme) => ({
@@ -15,9 +16,9 @@ const useStyles = makeStyles((theme) => ({
 	navMenu: {
 		listStyleType: "none",
 		display: "flex",
-    '& > li': {
-      padding: '20px 24px'
-    }
+		"& > li": {
+			padding: "20px 24px",
+		},
 	},
 	sectionDesktop: {
 		display: "none",
@@ -33,30 +34,18 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const Navbar = () => {
+const Navbar = (props) => {
 	const classes = useStyles();
-	const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
-	const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
-	const handleMobileMenuClose = () => {
-		setMobileMoreAnchorEl(null);
-	};
-
-	const handleMobileMenuOpen = (event) => {
-		setMobileMoreAnchorEl(event.currentTarget);
-	};
-
-	const mobileMenuId = "primary-search-account-menu-mobile";
 	const renderMobileMenu = (
 		<Menu
-			anchorEl={mobileMoreAnchorEl}
+			anchorEl={props.mobileMoreAnchorEl}
 			anchorOrigin={{ vertical: "top", horizontal: "right" }}
-			id={mobileMenuId}
+			id={props.mobileMenuId}
 			keepMounted
 			transformOrigin={{ vertical: "top", horizontal: "right" }}
-			open={isMobileMenuOpen}
-			onClose={handleMobileMenuClose}
+			open={props.isMobileMenuOpen}
+			onClose={props.handleMobileMenuClose}
 		>
 			<MenuItem>
 				<Typography color="inherit">Home</Typography>
@@ -87,31 +76,43 @@ const Navbar = () => {
 					<div className={classes.sectionDesktop}>
 						<ul className={classes.navMenu}>
 							<li>
-								<Typography variant="h6" component="h6" color="inherit">Home</Typography>
+								<Typography variant="h6" component="h6" color="inherit">
+									Home
+								</Typography>
 							</li>
 							<li>
-								<Typography variant="h6" component="h6" color="primary">Services</Typography>
+								<Typography variant="h6" component="h6" color="primary">
+									Services
+								</Typography>
 							</li>
 							<li>
-								<Typography variant="h6" component="h6" color="primary">Portfolio</Typography>
+								<Typography variant="h6" component="h6" color="primary">
+									Portfolio
+								</Typography>
 							</li>
 							<li>
-								<Typography variant="h6" component="h6" color="primary">Team</Typography>
+								<Typography variant="h6" component="h6" color="primary">
+									Team
+								</Typography>
 							</li>
 							<li>
-								<Typography variant="h6" component="h6" color="primary">Contact</Typography>
+								<Typography variant="h6" component="h6" color="primary">
+									Contact
+								</Typography>
 							</li>
 							<li>
-								<Typography variant="h6" component="h6" color="primary">Logout</Typography>
+								<Typography variant="h6" component="h6" color="primary">
+									Logout
+								</Typography>
 							</li>
 						</ul>
 					</div>
 					<div className={classes.sectionMobile}>
 						<IconButton
 							aria-label="show more"
-							aria-controls={mobileMenuId}
+							aria-controls={props.mobileMenuId}
 							aria-haspopup="true"
-							onClick={handleMobileMenuOpen}
+							onClick={props.handleMobileMenuOpen}
 							color="inherit"
 						>
 							<MoreIcon />

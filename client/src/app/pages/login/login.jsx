@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { styles } from "../../../assets/jss/authStyles";
 import {
 	Grid,
@@ -12,92 +12,7 @@ import {
 } from "@material-ui/core";
 import Vector from "./../../../assets/images/vector.svg";
 
-const Login = () => {
-	const [loginForm, setLoginForm] = useState({
-		email: {
-			value: "",
-			isValid: true,
-			errorMessage: "",
-		},
-		password: {
-			value: "",
-			isValid: true,
-			errorMessage: "",
-		},
-	});
-
-	const [checked, setChecked] = useState({
-		checked: true,
-	});
-
-	const handleCheckboxChange = (event) => {
-		setChecked({ [event.target.name]: event.target.checked });
-	};
-
-	// function to handle input change
-	const handleChange = (event) => {
-		const { name, value } = event.target;
-
-		const updatedState = loginForm;
-		updatedState[name].value = value;
-
-		setLoginForm(updatedState);
-	};
-
-	// function to handle form submission
-	const handleSubmit = (event) => {
-		event.preventDefault();
-		validate();
-		console.log(loginForm);
-	};
-
-	// function to handle form validation
-	const validate = () => {
-		if (!validateEmail(loginForm.email.value)) {
-			setLoginForm({
-				...loginForm,
-				email: {
-					...loginForm.email,
-					isValid: false,
-					errorMessage: "Invalid Email",
-				},
-			});
-			return;
-		} else if (loginForm.password.value.length <= 8) {
-			setLoginForm({
-				email: {
-					...loginForm.email,
-					isValid: true,
-					errorMessage: "",
-				},
-				password: {
-					...loginForm.password,
-					isValid: false,
-					errorMessage: "Password too short, min. 8 characters",
-				},
-			});
-		} else {
-			setLoginForm({
-				email: {
-					...loginForm.email,
-					isValid: true,
-					errorMessage: "",
-				},
-				password: {
-					...loginForm.password,
-					isValid: true,
-					errorMessage: "",
-				},
-			});
-		}
-	};
-
-	// function to validate user email
-	function validateEmail(email) {
-		var regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-		return regex.test(String(email).toLowerCase());
-	}
-
+const Login = (props) => {
 	return (
 		<div>
 			<Grid container>
@@ -125,22 +40,32 @@ const Login = () => {
 					style={styles.rightItem}
 				>
 					<Container maxWidth="sm" style={styles.formContainer}>
-						<Typography variant="h3" component="h3" className="heading" style={styles.formHeading}>
+						<Typography
+							variant="h3"
+							component="h3"
+							className="heading"
+							style={styles.formHeading}
+						>
 							Hello,
 							<br />
 							Welcome Back
 						</Typography>
 
-						<form onSubmit={handleSubmit} noValidate autoComplete="off" style={styles.form}>
+						<form
+							onSubmit={props.handleSubmit}
+							noValidate
+							autoComplete="off"
+							style={styles.form}
+						>
 							<div>
 								<TextField
 									id="email"
 									label="Email"
 									type="email"
 									name="email"
-									onChange={handleChange}
-									error={!loginForm.email.isValid}
-									helperText={loginForm.email.errorMessage}
+									onChange={props.handleChange}
+									error={!props.loginForm.email.isValid}
+									helperText={props.loginForm.email.errorMessage}
 									style={styles.textField}
 								/>
 							</div>
@@ -150,9 +75,9 @@ const Login = () => {
 									label="Password"
 									type="password"
 									name="password"
-									onChange={handleChange}
-									error={!loginForm.password.isValid}
-									helperText={loginForm.password.errorMessage}
+									onChange={props.handleChange}
+									error={!props.loginForm.password.isValid}
+									helperText={props.loginForm.password.errorMessage}
 									style={styles.textField}
 								/>
 							</div>
@@ -161,8 +86,8 @@ const Login = () => {
 									<FormControlLabel
 										control={
 											<Checkbox
-												checked={checked.checked}
-												onChange={handleCheckboxChange}
+												checked={props.checked.checked}
+												onChange={props.handleCheckboxChange}
 												name="checked"
 												color="primary"
 											/>

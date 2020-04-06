@@ -1,6 +1,7 @@
 import React from "react";
 import { makeStyles, Typography, IconButton } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
+import Avatar from "./../../../assets/images/avatar.png";
 
 const useStyles = makeStyles((theme) => ({
 	head: {
@@ -11,9 +12,14 @@ const useStyles = makeStyles((theme) => ({
 	titleBox: {
 		paddingTop: 9,
 		paddingLeft: 16,
+		display: "flex",
 	},
 	title: {
 		lineHeight: "1.1",
+	},
+	image: {
+		height: 36,
+		marginRight: 10,
 	},
 	availability: {
 		lineHeight: "1.2",
@@ -22,20 +28,30 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const ChatHead = () => {
+const ChatHead = (props) => {
 	const classes = useStyles();
 	return (
 		<div className={classes.head}>
 			<div className={classes.titleBox}>
-				<Typography component="p" color="primary" className={classes.title}>
-					Chatbot
-				</Typography>
-				<Typography component="p" className={classes.availability}>
-					Online
-				</Typography>
+				<div>
+					<img src={Avatar} className={classes.image} />
+				</div>
+				<div>
+					<Typography component="p" color="primary" className={classes.title}>
+						Chatbot
+					</Typography>
+					<Typography component="p" className={classes.availability}>
+						Online
+					</Typography>
+				</div>
 			</div>
 			<div>
-				<IconButton aria-label="delete" disableRipple={true}>
+				<IconButton
+					aria-label="close"
+					onClick={() => {
+						props.setChatStatus(!props.chatStatus);
+					}}
+				>
 					<CloseIcon color="primary" />
 				</IconButton>
 			</div>

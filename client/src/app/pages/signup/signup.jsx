@@ -12,97 +12,7 @@ import {
 } from "@material-ui/core";
 import Vector from "./../../../assets/images/vector.svg";
 
-const Signup = () => {
-	const [signupForm, setSignupFrom] = useState({
-		name: {
-			value: "",
-		},
-		email: {
-			value: "",
-			isValid: true,
-			errorMessage: "",
-		},
-		password: {
-			value: "",
-			isValid: true,
-			errorMessage: "",
-		},
-	});
-
-	const [checked, setChecked] = useState({
-		checked: false,
-	});
-
-	const handleCheckboxChange = (event) => {
-		setChecked({ [event.target.name]: event.target.checked });
-	};
-
-	// function to handle input change
-	const handleChange = (event) => {
-		const { name, value } = event.target;
-
-		const updatedState = signupForm;
-		updatedState[name].value = value;
-
-		setSignupFrom(updatedState);
-	};
-
-	// function to handle form submission
-	const handleSubmit = (event) => {
-		event.preventDefault();
-		validate();
-		console.log(signupForm);
-	};
-
-	// function to handle form validation
-	const validate = () => {
-		if (!validateEmail(signupForm.email.value)) {
-			setSignupFrom({
-				...signupForm,
-				email: {
-					...signupForm.email,
-					isValid: false,
-					errorMessage: "Invalid Email",
-				},
-			});
-			return;
-		} else if (signupForm.password.value.length <= 8) {
-			setSignupFrom({
-				...signupForm,
-				email: {
-					...signupForm.email,
-					isValid: true,
-					errorMessage: "",
-				},
-				password: {
-					...signupForm.password,
-					isValid: false,
-					errorMessage: "Password too short, min. 8 characters",
-				},
-			});
-		} else {
-			setSignupFrom({
-				...signupForm,
-				email: {
-					...signupForm.email,
-					isValid: true,
-					errorMessage: "",
-				},
-				password: {
-					...signupForm.password,
-					isValid: true,
-					errorMessage: "",
-				},
-			});
-		}
-	};
-
-	// function to validate user email
-	function validateEmail(email) {
-		var regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-		return regex.test(String(email).toLowerCase());
-	}
-
+const Signup = (props) => {
 	return (
 		<div className="signup">
 			<Grid container>
@@ -130,18 +40,28 @@ const Signup = () => {
 					style={styles.rightItem}
 				>
 					<Container maxWidth="sm" style={styles.formContainer}>
-						<Typography variant="h3" component="h3" className="heading" style={styles.formHeading}>
+						<Typography
+							variant="h3"
+							component="h3"
+							className="heading"
+							style={styles.formHeading}
+						>
 							Create an account
 						</Typography>
 
-						<form onSubmit={handleSubmit} noValidate autoComplete="off" style={styles.form}>
+						<form
+							onSubmit={props.handleSubmit}
+							noValidate
+							autoComplete="off"
+							style={styles.form}
+						>
 							<div>
 								<TextField
 									id="name"
 									label="Name"
 									type="text"
 									name="name"
-									onChange={handleChange}
+									onChange={props.handleChange}
 									style={styles.textField}
 								/>
 							</div>
@@ -151,9 +71,9 @@ const Signup = () => {
 									label="Email"
 									type="email"
 									name="email"
-									onChange={handleChange}
-									error={!signupForm.email.isValid}
-									helperText={signupForm.email.errorMessage}
+									onChange={props.handleChange}
+									error={!props.signupForm.email.isValid}
+									helperText={props.signupForm.email.errorMessage}
 									style={styles.textField}
 								/>
 							</div>
@@ -163,9 +83,9 @@ const Signup = () => {
 									label="Password"
 									type="password"
 									name="password"
-									onChange={handleChange}
-									error={!signupForm.password.isValid}
-									helperText={signupForm.password.errorMessage}
+									onChange={props.handleChange}
+									error={!props.signupForm.password.isValid}
+									helperText={props.signupForm.password.errorMessage}
 									style={styles.textField}
 								/>
 							</div>
@@ -173,8 +93,8 @@ const Signup = () => {
 								<FormControlLabel
 									control={
 										<Checkbox
-											checked={checked.checked}
-											onChange={handleCheckboxChange}
+											checked={props.checked.checked}
+											onChange={props.handleCheckboxChange}
 											name="checked"
 											color="primary"
 										/>
@@ -196,8 +116,13 @@ const Signup = () => {
 								/>
 							</div>
 							<div>
-								<Button variant="contained" color="primary" type="submit" style={styles.button}>
-									Primary
+								<Button
+									variant="contained"
+									color="primary"
+									type="submit"
+									style={styles.button}
+								>
+									Sign Up
 								</Button>
 							</div>
 						</form>
