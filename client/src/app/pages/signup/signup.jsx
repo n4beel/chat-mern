@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { styles } from "../../../assets/jss/authStyles";
 import {
 	Grid,
@@ -62,6 +62,8 @@ const Signup = (props) => {
 									type="text"
 									name="name"
 									onChange={props.handleChange}
+									error={!props.signupForm.name.isValid}
+									helperText={props.signupForm.name.errorMessage}
 									style={styles.textField}
 								/>
 							</div>
@@ -121,6 +123,7 @@ const Signup = (props) => {
 									color="primary"
 									type="submit"
 									style={styles.button}
+									disabled={!props.checked.checked}
 								>
 									Sign Up
 								</Button>

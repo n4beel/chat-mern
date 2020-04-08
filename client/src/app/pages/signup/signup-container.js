@@ -1,10 +1,15 @@
 import React from "react";
 import Signup from "./signup";
+import { connect } from "react-redux";
+import { signUp } from "./../../../store/actions/authActions";
+import { Redirect } from "react-router-dom";
 
-const SignupContainer = () => {
+const SignupContainer = (props) => {
 	const [signupForm, setSignupFrom] = React.useState({
 		name: {
 			value: "",
+			isValid: true,
+			errorMessage: "",
 		},
 		email: {
 			value: "",
@@ -40,25 +45,48 @@ const SignupContainer = () => {
 	const handleSubmit = (event) => {
 		event.preventDefault();
 		if (validate()) {
-			console.log(signupForm);
+			props.signUp(signupForm);
 		}
 	};
 
 	// function to handle form validation
 	const validate = () => {
+		if (signupForm.name.value.length <= 0) {
+			setSignupFrom({
+				...signupForm,
+				name: {
+					...signupForm.name,
+					isValid: false,
+					errorMessage: "Name cannot be Empty",
+				},
+			});
+			return false;
+		}
 		if (!validateEmail(signupForm.email.value)) {
 			setSignupFrom({
 				...signupForm,
+				name: {
+					...signupForm.name,
+					isValid: true,
+					errorMessage: "",
+				},
 				email: {
 					...signupForm.email,
 					isValid: false,
 					errorMessage: "Invalid Email",
 				},
 			});
+
 			return false;
-		} else if (signupForm.password.value.length <= 8) {
+		}
+		if (signupForm.password.value.length < 8) {
 			setSignupFrom({
 				...signupForm,
+				name: {
+					...signupForm.name,
+					isValid: true,
+					errorMessage: "",
+				},
 				email: {
 					...signupForm.email,
 					isValid: true,
@@ -70,23 +98,28 @@ const SignupContainer = () => {
 					errorMessage: "Password too short, min. 8 characters",
 				},
 			});
+
 			return false;
-		} else {
-			setSignupFrom({
-				...signupForm,
-				email: {
-					...signupForm.email,
-					isValid: true,
-					errorMessage: "",
-				},
-				password: {
-					...signupForm.password,
-					isValid: true,
-					errorMessage: "",
-				},
-			});
-			return true;
 		}
+
+		setSignupFrom({
+			name: {
+				...signupForm.name,
+				isValid: true,
+				errorMessage: "",
+			},
+			email: {
+				...signupForm.email,
+				isValid: true,
+				errorMessage: "",
+			},
+			password: {
+				...signupForm.password,
+				isValid: true,
+				errorMessage: "",
+			},
+		});
+		return true;
 	};
 
 	// function to validate user email
@@ -102,7 +135,25 @@ const SignupContainer = () => {
 		handleCheckboxChange,
 		handleSubmit,
 	};
+
+	// auth guard
+	if (props.auth?._id) {
+		return <Redirect to="/" />;
+	}
+
 	return <Signup {...childProps} />;
 };
 
-export default SignupContainer;
+const mapStateToProps = (state) => {
+	return {
+		auth: state.auth.auth,
+	};
+};
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		signUp: (newUser) => dispatch(signUp(newUser)),
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignupContainer);

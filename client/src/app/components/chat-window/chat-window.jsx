@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles, Typography, IconButton } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
 import ReceivedMsgContainer from "../received-msg/received-msg-container";
 import SentMsgContainer from "../sent-msg/sent-msg-container";
 

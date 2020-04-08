@@ -4,43 +4,50 @@ import {
 	SIGNUP_ERROR,
 	SIGNUP_SUCCESS,
 	SIGNOUT_SUCCESS,
-} from "./../type";
+} from "../config/type";
 
 const initState = {
 	authError: null,
+	auth: null,
+	token: null,
 };
 
 const auth = (state = initState, action) => {
 	switch (action.type) {
 		case LOGIN_ERROR:
-			console.log("login error");
 			return {
 				...state,
-				authError: "login failed",
+				authError: action.response.result,
 			};
 
 		case LOGIN_SUCCESS:
-			console.log("login success");
 			return {
 				...state,
 				authError: null,
+				auth: action.response.result.getUser,
+				token: action.response.result.token,
 			};
 
 		case SIGNOUT_SUCCESS:
-			console.log("signout successful");
-			return state;
-
-		case SIGNUP_ERROR:
-			console.log("signup error");
 			return {
 				...state,
-				authError: action.err.message,
+				auth: null,
+				authError: null,
+			};
+
+		case SIGNUP_ERROR:
+			// proper error message handling to be implemented
+			alert(action.response.result);
+			return {
+				...state,
+				auth: null,
+				authError: action.response.result,
 			};
 
 		case SIGNUP_SUCCESS:
-			console.log("signup success");
 			return {
 				...state,
+				auth: action.response.result,
 				authError: null,
 			};
 

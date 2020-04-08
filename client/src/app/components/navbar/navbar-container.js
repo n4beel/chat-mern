@@ -1,7 +1,9 @@
 import React from "react";
 import Navbar from "./navbar";
+import { connect } from "react-redux";
+import { signOut } from "../../../store/actions/authActions";
 
-const NavbarContainer = () => {
+const NavbarContainer = (props) => {
 	const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
 	const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -22,9 +24,16 @@ const NavbarContainer = () => {
 		handleMobileMenuClose,
 		mobileMenuId,
 		isMobileMenuOpen,
+		...props,
 	};
 
 	return <Navbar {...childProps} />;
 };
 
-export default NavbarContainer;
+const mapDispatchToProps = (dispatch) => {
+	return {
+		signOut: () => dispatch(signOut()),
+	};
+};
+
+export default connect(null, mapDispatchToProps)(NavbarContainer);

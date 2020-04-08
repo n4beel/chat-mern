@@ -34,7 +34,7 @@ const ChatHead = (props) => {
 		<div className={classes.head}>
 			<div className={classes.titleBox}>
 				<div>
-					<img src={Avatar} className={classes.image} />
+					<img src={Avatar} className={classes.image} alt="chat bot avatar" />
 				</div>
 				<div>
 					<Typography component="p" color="primary" className={classes.title}>

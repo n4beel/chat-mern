@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
 		display: "flex",
 		"& > li": {
 			padding: "20px 24px",
+			cursor: "pointer",
 		},
 	},
 	sectionDesktop: {
@@ -62,7 +63,7 @@ const Navbar = (props) => {
 			<MenuItem>
 				<Typography color="primary">Contact</Typography>
 			</MenuItem>
-			<MenuItem>
+			<MenuItem onClick={props.signOut}>
 				<Typography color="primary">Logout</Typography>
 			</MenuItem>
 		</Menu>
@@ -100,7 +101,7 @@ const Navbar = (props) => {
 									Contact
 								</Typography>
 							</li>
-							<li>
+							<li onClick={props.signOut}>
 								<Typography variant="h6" component="h6" color="primary">
 									Logout
 								</Typography>

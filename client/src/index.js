@@ -13,14 +13,12 @@ import theme from "./theme";
 const store = createStore(rootReducer, applyMiddleware(thunk));
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <ThemeProvider theme={theme}>
-        <App />
-      </ThemeProvider>
-    </Provider>
-  </React.StrictMode>,
-  document.getElementById("root")
+	<Provider store={store}>
+		<ThemeProvider theme={theme}>
+			<App />
+		</ThemeProvider>
+	</Provider>,
+	document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change

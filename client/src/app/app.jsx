@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import LoginContainer from "./pages/login/login-container";
 import MainContainer from "./pages/main/main-container";
 import SignupContainer from "./pages/signup/signup-container";
+import { connect } from "react-redux";
 
 const App = () => {
 	return (
@@ -18,4 +19,9 @@ const App = () => {
 	);
 };
 
-export default App;
+const mapStateToProps = (state) => {
+	console.log(state);
+	return {};
+};
+
+export default connect(mapStateToProps)(App);

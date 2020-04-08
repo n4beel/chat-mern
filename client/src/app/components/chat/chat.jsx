@@ -1,11 +1,5 @@
 import React from "react";
-import {
-	Fab,
-	makeStyles,
-	Badge,
-	Typography,
-	IconButton,
-} from "@material-ui/core";
+import { Fab, makeStyles, Badge } from "@material-ui/core";
 import ChatIcon from "@material-ui/icons/Chat";
 import ChatHeadContainer from "../chat-head/chat-head-container";
 import ChatWindowContainer from "../chat-window/chat-window-container";

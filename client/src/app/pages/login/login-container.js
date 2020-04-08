@@ -1,7 +1,12 @@
 import React from "react";
 import Login from "./login";
+import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
+import { login } from "../../../store/actions/authActions";
+// import { ToastContainer, toast } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.min.css";
 
-const LoginContainer = () => {
+const LoginContainer = (props) => {
 	// state for login form
 	const [loginForm, setLoginForm] = React.useState({
 		email: {
@@ -40,7 +45,7 @@ const LoginContainer = () => {
 	const handleSubmit = (event) => {
 		event.preventDefault();
 		if (validate()) {
-			console.log(loginForm);
+			props.login(loginForm);
 		}
 	};
 
@@ -56,7 +61,7 @@ const LoginContainer = () => {
 				},
 			});
 			return false;
-		} else if (loginForm.password.value.length <= 8) {
+		} else if (loginForm.password.value.length < 8) {
 			setLoginForm({
 				email: {
 					...loginForm.email,
@@ -88,10 +93,20 @@ const LoginContainer = () => {
 	};
 
 	// function to validate user email
-	function validateEmail(email) {
+	const validateEmail = (email) => {
 		var regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 		return regex.test(String(email).toLowerCase());
-	}
+	};
+
+	// const notify = (err) =>
+	// 	toast.error(err, {
+	// 		position: "top-right",
+	// 		autoClose: false,
+	// 		hideProgressBar: false,
+	// 		closeOnClick: true,
+	// 		pauseOnHover: true,
+	// 		draggable: true,
+	// 	});
 
 	const childProps = {
 		loginForm,
@@ -101,7 +116,34 @@ const LoginContainer = () => {
 		handleSubmit,
 	};
 
-	return <Login {...childProps} />;
+	// auth guard
+	if (props.auth.auth?._id) {
+		return <Redirect to="/" />;
+	}
+
+	// show error if there is one
+	// if (props.authError !== null) {
+	// 	console.log("error found");
+	// 	notify(props.authError);
+	// }
+
+	return (
+		<div>
+			<Login {...childProps} />
+			{/* <ToastContainer /> */}
+		</div>
+	);
 };
 
-export default LoginContainer;
+const mapStateToProps = (state) => {
+	console.log(state.auth.auth);
+	return {
+		auth: state.auth,
+	};
+};
+const mapDispatchToProps = (dispatch) => {
+	return {
+		login: (creds) => dispatch(login(creds)),
+	};
+};
+export default connect(mapStateToProps, mapDispatchToProps)(LoginContainer);
